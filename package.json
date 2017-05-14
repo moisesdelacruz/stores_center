@@ -1,0 +1,41 @@
+{
+  "name": "stores_center",
+  "version": "0.1.0",
+  "description": "E-commerce built on Django.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moisesdelacruz/stores_center.git"
+  },
+  "keywords": [
+    "e-commerce",
+    "ecommerce",
+    "stores",
+    "shop",
+    "shops",
+    "review",
+    "django"
+  ],
+  "author": "moisesdelacruz <moisesdelacruz.dev@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/moisesdelacruz/stores_center/issues"
+  },
+  "homepage": "https://github.com/moisesdelacruz/stores_center#readme",
+  "dependencies": {
+    "materialize-css": "^0.98.2"
+  },
+  "devDependencies": {
+    "babelify": "^7.3.0",
+    "browserify": "^14.3.0",
+    "gulp": "^3.9.1",
+    "gulp-livereload": "^3.8.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.9.0"
+  }
+}
