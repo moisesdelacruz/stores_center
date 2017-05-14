@@ -1,7 +1,8 @@
 from django import forms
 from django.utils.translation import gettext, gettext_lazy as _
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
+from django.contrib.auth.forms import (UserCreationForm,
+    UserChangeForm, PasswordChangeForm, SetPasswordForm)
 
 class UserCreateForm(UserCreationForm):
     password1 = forms.CharField(label='password',
