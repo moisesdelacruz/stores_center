@@ -4,7 +4,8 @@
   "description": "E-commerce built on Django.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "gulp watch",
+    "start": "gulp"
   },
   "repository": {
     "type": "git",
