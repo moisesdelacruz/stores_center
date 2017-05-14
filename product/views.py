@@ -9,6 +9,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 # this project
 from product.models import Product
+from product.forms import ProductModelForm
 from shop.models import Shop
 
 # Create your views here.
