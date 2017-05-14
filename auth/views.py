@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render, redirec
-from django.core.urlrosolvers import reverse_lazy
+from django.shortcuts import render, redirect
+from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import View, FromView
+from django.views.generic import View, FormView
 
 # this project
 from users.forms import UserCreateForm
