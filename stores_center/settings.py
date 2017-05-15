@@ -67,6 +67,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'product.context_processors.categories',
+                'product.context_processors.menu',
             ],
         },
     },
@@ -122,7 +124,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
-STATICFILES_DIR = [
+STATICFILES_DIRS= [
     os.path.join(BASE_DIR, 'static/')
 ]
 
