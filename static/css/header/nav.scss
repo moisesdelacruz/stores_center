@@ -1,0 +1,57 @@
+.nav {
+  height: $height_nav;
+  border-bottom: 1px solid #ccc;
+}
+
+.nav .row.container {
+  display: flex;
+  margin: 0 auto;
+  height: 100%;
+}
+
+.nav .content_logo {
+  display: flex;
+  align-items: center;
+}
+
+.nav .content_logo .logo {
+  align-items: center;
+}
+
+.nav .nav_bar {
+  display: flex;
+  align-items: center;
+}
+
+.nav .nav_bar nav {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.nav .nav_bar nav li a {
+  font-weight: 400;
+  font-size: 1.1em;
+  color: $black;
+}
+
+.nav .nav_bar nav li a.active {
+  color: $primary-color;
+}
+
+.nav .nav_bar nav li a.card {
+  box-shadow: none;
+  display: flex;
+}
+
+.nav .nav_bar nav li a.card i {
+  color: $primary-color;
+  font-size: 2em;
+  line-height: 1.5;
+  float: left;
+}
+
+.nav .nav_bar nav li a.card span {
+  background-color: transparent;
+  float: right;
+}

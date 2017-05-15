@@ -1,0 +1,51 @@
+{% extends "blank.html" %}
+
+{% load static %}
+
+{% block body %}
+  <header class="header">
+    <div class="topBar">
+      <div class="row container">
+        <div class="col s6">
+          <ul class="social">
+            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+          </ul>
+        </div>
+        <div class="col s6">
+          <ul class="social right">
+            <li><a href="#"><i class="fa fa-search"></i></a></li>
+            <li>|</li>
+            <li><a href="#">Signin</a></li>
+            <li>or</li>
+            <li><a href="#">Signup</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <div class="row container">
+        <div class="col s12 m4 content_logo">
+          <img class="logo" src="{% static "assets/logo.png" %}" width="150" alt="stores center" />
+        </div>
+        <div class="col m8 hide-on-small-only nav_bar">
+          <nav>
+            <ul class="right">
+              {% for item in menu %}
+                <li><a href="{{ item.url }}" {% if item.active %}class="active"{% endif %}>{{ item.name }}</a></li>
+              {% endfor %}
+              <li><a href="#" class="card"><i class="material-icons">shopping_cart</i><span class="new badge blue" data-badge-caption="Products">4</span></a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+  <main class="container">
+    {% block main %}
+
+    {% endblock %}
+  </main>
+{% endblock %}

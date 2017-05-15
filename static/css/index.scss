@@ -1,5 +1,40 @@
-$primary-color: red;
+// variables
+$height_topBar: 2.5em;
 
-nav {
-  color: violet;
+$height_nav: 5.5em;
+
+$primary-color: #47BAC1;
+$black: #252525;
+$background-color: #EEEEEE;
+
+// imports
+@import "node_modules/materialize-css/sass/materialize.scss";
+@import "./header/index.scss";
+
+body {
+  background-color: $background-color;
+}
+
+.social {
+  margin: 0;
+}
+
+.social li {
+  display: inline-block;
+  line-height: $height_topBar;
+  color: #525252 !important;
+}
+
+.social li a {
+  padding: .5em;
+  color: white;
+  font-weight: 300;
+}
+
+.menu_cat {
+  margin: 0 !important;
+}
+
+.menu_cat > div {
+  padding: 0 !important;
 }
