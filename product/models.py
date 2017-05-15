@@ -22,7 +22,7 @@ class Category(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-		if self.id:
+		if self.title:
 			self.slug = slugify(self.title)
 			super(Category, self).save(*args, **kwargs)
 		else:
