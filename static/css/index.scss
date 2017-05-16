@@ -15,6 +15,10 @@ body {
   background-color: $background-color;
 }
 
+main {
+  margin: 2em auto;
+}
+
 .social {
   margin: 0;
 }
@@ -37,4 +41,24 @@ body {
 
 .menu_cat > div {
   padding: 0 !important;
+}
+
+.rating {
+  color: #d5d5d5;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.rating:hover {
+  color: $primary-color;
+}
+
+.price-old {
+  color: #d5d5d5 !important;
+  margin-right: 5px !important;
+  text-decoration: line-through;
+}
+
+.card-title a {
+  color: white !important;
 }

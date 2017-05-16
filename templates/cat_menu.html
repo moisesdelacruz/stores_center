@@ -1,14 +1,13 @@
 <div class="row menu_cat">
-  <div class="col s2 m4 hide-on-small-only">
     <div class="collection">
-        {% for cat in categories %}
-          <a href="{{ cat.url }}"
-            {% if cat.active %}
-              class="collection-item active"
-            {% else %}
-              class="collection-item"
-            {% endif %}>{{ cat.name }}</a>
-        {% endfor %}
-      </div>
-  </div>
+      <a href="#" class="collection-item active">Categories</a>
+      {% for cat in categories %}
+        <a href="{{ cat.url }}"
+          {% if cat.active %}
+            class="collection-item active"
+          {% else %}
+            class="collection-item"
+          {% endif %}>{{ cat.name }}</a>
+      {% endfor %}
+    </div>
 </div>

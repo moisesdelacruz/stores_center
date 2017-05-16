@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Home
+{% endblock %}
+
+{% block main %}
+  <div class="row container">
+    <div class="col s12 m12 white">
+      <div class="row">
+        {% for object in object_list %}
+          <div class="col s12 m4">
+            <div class="card">
+              <div class="card-action">
+                <a href="#" class="price-old">79.99 $</a>
+                <a href="#">34.99 $</a>
+                <span class="rating right">
+                  <i class="fa fa-star" aria-hidden="true"></i>
+                  <i class="fa fa-star" aria-hidden="true"></i>
+                  <i class="fa fa-star" aria-hidden="true"></i>
+                  <i class="fa fa-star" aria-hidden="true"></i>
+                  <i class="fa fa-star-o" aria-hidden="true"></i>
+                </span>
+              </div>
+              <div class="card-image">
+                <img src="{{ object.photo.url }}">
+                <span class="card-title"><a href="#">{{ object.name|title }}</a></span>
+              </div>
+              <div class="card-content">
+                <p>{{ object.description|truncatechars:120 }}</p>
+              </div>
+              <div class="card-action">
+                <a href="#"><span>Buy Now</span><i class="material-icons right">add_shopping_cart</i></a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
