@@ -10,6 +10,7 @@ $background-color: #EEEEEE;
 // imports
 @import "node_modules/materialize-css/sass/materialize.scss";
 @import "./header/index.scss";
+@import "./profile/index.scss";
 
 body {
   background-color: $background-color;
@@ -27,6 +28,10 @@ blockquote {
 
 .title {
   color: $primary-color;
+}
+
+.border-right {
+  border-right: 1px solid #EEE;
 }
 
 .social {

@@ -6737,6 +6737,14 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
 .header {
   background-color: white; }
 
+.profile-img {
+  border-radius: 50%;
+  background-color: #eeeeee;
+  width: 150px;
+  height: 150px;
+  line-height: 15;
+  margin: 1em auto; }
+
 body {
   background-color: #EEEEEE; }
 
@@ -6750,6 +6758,9 @@ blockquote {
 
 .title {
   color: #47BAC1; }
+
+.border-right {
+  border-right: 1px solid #EEE; }
 
 .social {
   margin: 0; }

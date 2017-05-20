@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}
+  {% if object.get_full_name %}
+    {{ object.get_full_name|title }}
+  {% else %}
+    {{ object.username }}
+  {% endif %}
+{% endblock %}
+
+{% block main %}
+  <div class="row container">
+    <div class="col s12 m4 border-right">
+      <div class="row">
+        <p class="center profile-img">
+          <i class="large material-icons circle">perm_identity</i>
+        </p>
+        <div class="row center">
+          <p>
+            {% if object.get_full_name %}
+              {{ object.get_full_name|title }}
+            {% else %}
+              {{ object.username }}
+            {% endif %}
+          </p>
+          <p>
+            {{ object.email }}
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <h5 class="title">Shops</h5>
+        <ul class="collection">
+          {% for shop in shops %}
+            <li class="collection-item avatar">
+              <img src="{{ shop.logo.url }}" alt="" class="circle">
+              <span class="title">{{ shop.name }}</span>
+              <p>{{ shop.description|truncatechars:40 }}</p>
+              <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+            </li>
+          {% endfor %}
+        </ul>
+        <a class="btn-floating btn-large waves-effect waves-light right"><i class="material-icons">add</i></a>
+      </div>
+    </div>
+    <div class="col s12 m8">
+      <h4 class="title center">Shopping Cart</h4>
+      <div class="progress">
+        <div class="indeterminate"></div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
