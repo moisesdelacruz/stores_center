@@ -1,0 +1,40 @@
+{% extends "blank.html" %}
+
+{% block title %}
+  Signup
+{% endblock %}
+
+{% block body %}
+  <div class="row container">
+    <h4 class="title">Signup</h4>
+    <div class="col s12 m6 push-m3">
+      <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+        {% if field.label == 'First name' or field.label == 'Last name' %}
+          <div class="input-field col s6">
+            {{ field }}
+            <label for="">{{ field.label }}</label>
+          </div>
+        {% else %}
+          <div class="row">
+            <div class="input-field col s12">
+              {{ field }}
+              <label for="">{{ field.label }}</label>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+
+      <div class="row">
+        <button class="btn waves-effect waves-light right" type="submit" name="action">Submit
+          <i class="material-icons right">send</i>
+        </button>
+      </div>
+      <blockquote>
+        If already has a account <a href="{% url 'auth:signin' %}">Signin</a>
+      </blockquote>
+      </form>
+    </div>
+  </div>
+{% endblock %}

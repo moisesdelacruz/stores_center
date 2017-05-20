@@ -18,12 +18,12 @@ class SignupView(FormView):
     extra_context = None
     form_class = UserCreateForm
     template_name = 'auth/signup.html'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('product:list')
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated():
             return super(SignupView, self).dispatch(request, *args, **kwargs)
-        return redirect(reverse_lazy('home'))
+        return redirect(reverse_lazy('product:list'))
 
     def form_valid(self, form):
         form.save()
@@ -38,12 +38,12 @@ class SigninView(FormView):
     form_class = AuthForm
     template_name = 'auth/signin.html'
     extra_context = None
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('product:list')
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated():
             return super(SigninView, self).dispatch(request, *args, **kwargs)
-        return redirect(reverse_lazy('home'))
+        return redirect(reverse_lazy('product:list'))
 
     def form_valid(self, form):
         username = self.request.POST['username']

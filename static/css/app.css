@@ -6743,6 +6743,14 @@ body {
 main {
   margin: 2em auto; }
 
+blockquote {
+  margin: 20px 0;
+  padding-left: 1.5rem;
+  border-left: 5px solid #47BAC1 !important; }
+
+.title {
+  color: #47BAC1; }
+
 .social {
   margin: 0; }
 
