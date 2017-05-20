@@ -13,7 +13,7 @@ def content_file_name(instance, filename):
 # Create your models here.
 class Shop(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.ForeignKey(User)
+    owner = models.ForeignKey(User)
     name = models.CharField(max_length=60)
     description = models.TextField()
     logo = models.ImageField(blank=True, upload_to=content_file_name)

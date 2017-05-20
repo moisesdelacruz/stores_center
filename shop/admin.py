@@ -8,8 +8,8 @@ from shop.models import Shop
 
 @admin.register(Shop)
 class ShopModelAdmin(admin.ModelAdmin):
-    list_display = ('name', 'description', 'user', 'logo_img',)
-    search_fields = ('name', 'user__username',)
+    list_display = ('name', 'description', 'owner', 'logo_img',)
+    search_fields = ('name', 'owner__username',)
 
     def logo_img(self, obj):
 		url = obj.logo_img()
