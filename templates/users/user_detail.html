@@ -33,14 +33,15 @@
         <ul class="collection">
           {% for shop in shops %}
             <li class="collection-item avatar">
-              <img src="{{ shop.logo.url }}" alt="" class="circle">
-              <span class="title">{{ shop.name }}</span>
+              {% if shop.logo %}
+                <img src="{{ shop.logo.url }}" alt="" class="circle">
+              {% endif %}
+              <span><a href="{% url 'shop:detail' shop.slug %}" class="title">{{ shop.name }}</a></span>
               <p>{{ shop.description|truncatechars:40 }}</p>
-              <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
             </li>
           {% endfor %}
         </ul>
-        <a class="btn-floating btn-large waves-effect waves-light right"><i class="material-icons">add</i></a>
+        <a class="btn-floating btn-large waves-effect waves-light right" href="{% url 'shop:create' %}"><i class="material-icons">add</i></a>
       </div>
     </div>
     <div class="col s12 m8">
