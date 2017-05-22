@@ -16,6 +16,12 @@
 
 .nav .content_logo .logo {
   align-items: center;
+  font-size: 2.3em;
+  color: $primary-color;
+}
+
+.nav .content_logo .logo span {
+  color: $black;
 }
 
 .nav .nav_bar {
@@ -54,4 +60,14 @@
 .nav .nav_bar nav li a.card span {
   background-color: transparent;
   float: right;
+}
+
+@media #{$small-and-down} {
+    .nav {
+      position: relative;
+    }
+
+    .nav .row.container {
+      position: absolute;
+    }
 }
