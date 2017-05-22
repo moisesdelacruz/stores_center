@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}
+  {{ object.name|title }}
+{% endblock %}
+
+{% block main %}
+  <div class="row shop">
+    <div class="col s12 m10 push-m1">
+      <div class="row margin-top">
+        <div class="col s12 m4 center">
+          <div class="shop_logo">
+            {% if object.logo %}
+              <img src="{{ object.logo.url }}" width="320" height="320" alt="" />
+            {% endif %}
+          </div>
+          <h5>{{ object.name|title }}</h5>
+          <a href="{% url 'users:profile' object.owner %}">@{{ object.owner }}</a>
+          <div class="row"></div>
+          <a class="waves-effect waves-light btn"><i class="material-icons left">add</i>new product</a>
+          <div class="fixed-action-btn horizontal">
+            <a class="btn-floating btn-large">
+              <i class="large material-icons">mode_edit</i>
+            </a>
+            <ul>
+              <li><a class="btn-floating blue" href="{% url 'shop:delete' object.slug %}"><i class="material-icons">mode_edit</i></a></li>
+              <li><a class="btn-floating red" href="{% url 'shop:edit' object.slug %}"><i class="material-icons">delete</i></a></li>
+            </ul>
+          </div>
+
+        </div>
+        <div class="col m8 center hide-on-small-only">
+          <div class="cover_image">
+            {% if object.cover_image %}
+              <img src="{{ object.cover_image.url }}" width="658" height="320" alt="" />
+            {% endif %}
+          </div>
+          <div class="row">
+            <p>
+              {{ object.description }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
