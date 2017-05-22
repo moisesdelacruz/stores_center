@@ -14,13 +14,13 @@
         {% if field.label == 'First name' or field.label == 'Last name' %}
           <div class="input-field col s6">
             {{ field }}
-            <label for="">{{ field.label }}</label>
+            <label for="" data-error="wrong" data-success="right">{{ field.label }}</label>
           </div>
         {% else %}
           <div class="row">
             <div class="input-field col s12">
               {{ field }}
-              <label for="">{{ field.label }}</label>
+              <label for="" data-error="wrong" data-success="right">{{ field.label }}</label>
             </div>
           </div>
         {% endif %}
