@@ -5,8 +5,8 @@
 {% endblock %}
 
 {% block main %}
-  <div class="row shop">
-    <div class="col s12 m10 push-m1">
+  <div class="row shop container">
+    <div class="col s12 m12">
       <div class="row margin-top">
         <div class="col s12 m4 center">
           <div class="shop_logo">
@@ -43,5 +43,26 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="row container">
+    {% for product in products %}
+      <div class="col s12 m6">
+        <div class="card horizontal">
+          <div class="card-image">
+            <img src="{{ product.photo.url }}" width="100" height="190">
+          </div>
+          <div class="card-stacked">
+            <div class="card-content">
+              <h5 class="title" title="{{ product.name|title }}">{{ product.name|title|truncatechars:20 }}</h5>
+              <p>{{ product.description|truncatechars:60 }}</p>
+            </div>
+            <div class="card-action">
+              <a href="#">buy now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
   </div>
 {% endblock %}

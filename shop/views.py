@@ -9,15 +9,17 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from shop.models import Shop
 from shop.forms import ShopModelForm
 
+from product.models import Product
+
 # Create your views here.
 
 class ShopDetailView(DetailView):
     model = Shop
 
-# def shop_detail(request, slug):
-#     template = 'shop/shop_detail.html'
-#     shop = get_object_or_404(Shop, slug=slug)
-#     return render(request, template, {'object': shop})
+    def get_context_data(self, **kwargs):
+        context = super(ShopDetailView, self).get_context_data(**kwargs)
+        context['products'] = Product.objects.filter(shop=self.object)
+        return context
 
 class ShopCreateView(CreateView):
     model = Shop
