@@ -2,6 +2,10 @@ from django import forms
 from product.models import Product
 
 class ProductModelForm(forms.ModelForm):
+
     class Meta:
         model = Product
-        exclude = ('shop',)
+        fields = ('name','categories','description','price','discount','photo',)
+        widgets = {
+            'description': forms.Textarea(attrs={'class': 'materialize-textarea'}),
+        }

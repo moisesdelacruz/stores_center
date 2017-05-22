@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render, get_object_or_404
+from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
@@ -19,7 +20,7 @@ class ProductListView(ListView):
 
 class ProductDetailView(DetailView):
     model = Product
-    pk_url_kwarg = 'slug'
+    pk_url_kwarg = 'uuid'
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
@@ -29,9 +30,9 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     def dispatch(self, request, *args, **kwargs):
         # if request.user is owner of the shop can publish
         self.shop = get_object_or_404(Shop, slug=self.kwargs['slug'])
-        if not request.user == self.shop.user:
+        if not request.user == self.shop.owner:
             return HttpResponse('404')
-        return super(Product, self).dispatch(request, *args, **kwargs)
+        return super(ProductCreateView, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
         return reverse_lazy('product:detail', args=(self.object.pk,))
@@ -50,7 +51,7 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
     def dispatch(self, request, *args, **kwargs):
         # if request.user is owner of the shop can update
         self.shop = get_object_or_404(Shop, slug=self.kwargs['slug'])
-        if not request.user == self.shop.user:
+        if not request.user == self.shop.owner:
             return HttpResponse('404')
         return super(ProductUpdateView, self).dispatch(request, *args, **kwargs)
 
@@ -64,9 +65,9 @@ class ProductDeleteView(LoginRequiredMixin, DeleteView):
     def dispatch(self, request, *args, **kwargs):
         # if request.user is owner of the shop can update
         self.shop = get_object_or_404(Shop, slug=self.kwargs['slug'])
-        if not request.user == self.shop.user:
+        if not request.user == self.shop.owner:
             return HttpResponse('404')
-        return super(ProductUpdateView, self).dispatch(request, *args, **kwargs)
+        return super(ProductDeleteView, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
         return reverse_lazy('shop:detail', args=self.object.shop.slug)
