@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}
+  New Product
+{% endblock %}
+
+{% block main %}
+  <div class="row container">
+    <div class="col s12 m6 push-m3">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+          {% if field.label == 'Categories' %}
+            <div class="input-field row">
+              {{ field }}
+              <label>{{ field.label }}</label>
+            </div>
+          {% elif field.label == 'Photo' %}
+            <div class="row file-field input-field">
+              <div class="btn">
+                <span>{{ field.label }}</span>
+                {{ field }}
+              </div>
+              <div class="file-path-wrapper">
+                <input class="file-path validate" type="text">
+              </div>
+            </div>
+          {% else %}
+            <div class="row input-field">
+              {{ field }}
+              <label for="">{{ field.label }}</label>
+            </div>
+          {% endif %}
+        {% endfor %}
+        <div class="row">
+          <button class="btn waves-effect waves-light right" type="submit" name="action">Submit
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

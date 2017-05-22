@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}
+  {{ object.name }}
+{% endblock %}
+
+{% block main %}
+  <div class="row container">
+    <h1 class="title">{{ object.name }}</h1>
+    <img src="{{ object.photo.url }}" width="450" height="450"/>
+    <p class="title">
+      {{ object.price }}
+    </p>
+    {% if object.discount %}
+      <p>
+        {{ object.discount }}%
+      </p>
+    {% endif %}
+    <p>
+      {{ object.description }}
+    </p>
+  </div>
+{% endblock %}

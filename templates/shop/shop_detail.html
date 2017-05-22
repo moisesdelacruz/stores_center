@@ -18,7 +18,7 @@
           <a href="{% url 'users:profile' object.owner %}">@{{ object.owner }}</a>
           <div class="row"></div>
           {% if request.user == object.owner %}
-            <a class="waves-effect waves-light btn"><i class="material-icons left">add</i>new product</a>
+            <a href="{% url 'product:new' object.slug %}" class="waves-effect waves-light btn"><i class="material-icons left">add</i>new product</a>
             <div class="fixed-action-btn horizontal">
               <a class="btn-floating btn-large">
                 <i class="large material-icons">mode_edit</i>
