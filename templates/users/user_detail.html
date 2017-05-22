@@ -41,7 +41,9 @@
             </li>
           {% endfor %}
         </ul>
-        <a class="btn-floating btn-large waves-effect waves-light right" href="{% url 'shop:create' %}"><i class="material-icons">add</i></a>
+        {% if request.user.username == object.username %}
+          <a class="btn-floating btn-large waves-effect waves-light right" href="{% url 'shop:create' %}"><i class="material-icons">add</i></a>
+        {% endif %}
       </div>
     </div>
     <div class="col s12 m8">
