@@ -16,7 +16,7 @@ class Shop(models.Model):
     owner = models.ForeignKey(User)
     name = models.CharField(max_length=60)
     description = models.TextField()
-    logo = models.ImageField(blank=True, upload_to=content_file_name)
+    logo = models.ImageField(upload_to=content_file_name)
     cover_image = models.ImageField(blank=True, upload_to=content_file_name)
     slug = models.SlugField(editable=False)
     created_at = models.DateTimeField(auto_now_add=True)
