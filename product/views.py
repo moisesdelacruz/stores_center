@@ -11,6 +11,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 # this project
 from product.models import Product
 from product.forms import ProductModelForm
+from product.mixins import IsOwnerMixin
 from shop.models import Shop
 
 # Create your views here.
@@ -37,17 +38,11 @@ class ProductDetailView(DetailView):
                 - ((self.object.discount * float(self.object.price)) / 100))
         return context
 
-class ProductCreateView(LoginRequiredMixin, CreateView):
+class ProductCreateView(LoginRequiredMixin, IsOwnerMixin, CreateView):
     model = Product
     form_class = ProductModelForm
     pk_url_kwarg = 'uuid'
-
-    def dispatch(self, request, *args, **kwargs):
-        # if request.user is owner of the shop can publish
-        self.shop = get_object_or_404(Shop, slug=self.kwargs['shop_slug'])
-        if not request.user == self.shop.owner:
-            return HttpResponse('404')
-        return super(ProductCreateView, self).dispatch(request, *args, **kwargs)
+    slug_or_pk_shop = 'shop_slug'
 
     def get_success_url(self):
         return reverse_lazy('product:detail', args=(self.object.pk,))
@@ -58,31 +53,19 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
         form_serialized.save()
         return super(ProductCreateView, self).form_valid(form)
 
-class ProductUpdateView(LoginRequiredMixin, UpdateView):
+class ProductUpdateView(LoginRequiredMixin, IsOwnerMixin, UpdateView):
     model = Product
     form_class = ProductModelForm
     pk_url_kwarg = 'uuid'
-
-    def dispatch(self, request, *args, **kwargs):
-        # if request.user is owner of the shop can update
-        self.shop = get_object_or_404(Shop, slug=self.kwargs['shop_slug'])
-        if not request.user == self.shop.owner:
-            return HttpResponse('404')
-        return super(ProductUpdateView, self).dispatch(request, *args, **kwargs)
+    slug_or_pk_shop = 'shop_slug'
 
     def get_success_url(self):
         return reverse_lazy('product:detail', args=(self.object.pk,))
 
-class ProductDeleteView(LoginRequiredMixin, DeleteView):
+class ProductDeleteView(LoginRequiredMixin, IsOwnerMixin, DeleteView):
     model = Product
     pk_url_kwarg = 'uuid'
-
-    def dispatch(self, request, *args, **kwargs):
-        # if request.user is owner of the shop can update
-        self.shop = get_object_or_404(Shop, slug=self.kwargs['shop_slug'])
-        if not request.user == self.shop.owner:
-            return HttpResponse('404')
-        return super(ProductDeleteView, self).dispatch(request, *args, **kwargs)
+    slug_or_pk_shop = 'shop_slug'
 
     def get_success_url(self):
         return reverse_lazy('shop:detail', args=(self.object.shop.slug,))
