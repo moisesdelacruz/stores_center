@@ -18,9 +18,24 @@ from shop.models import Shop
 class ProductListView(ListView):
     model = Product
 
+    def get_context_data(self, **kwargs):
+        context = super(ProductListView, self).get_context_data(**kwargs)
+        for index, product in enumerate(self.object_list):
+            if product.discount:
+                self.object_list[index].new_price = (float(product.price)
+                    - ((product.discount * float(product.price)) / 100))
+        return context
+
 class ProductDetailView(DetailView):
     model = Product
     pk_url_kwarg = 'uuid'
+
+    def get_context_data(self, **kwargs):
+        context = super(ProductDetailView, self).get_context_data(**kwargs)
+        if self.object.discount:
+            self.object.new_price = (float(self.object.price)
+                - ((self.object.discount * float(self.object.price)) / 100))
+        return context
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
