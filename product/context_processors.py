@@ -4,9 +4,9 @@ from product.models import Category
 def menu(request):
     menu = {'menu': [
         {'name': 'Home', 'url': reverse('product:list')},
-        {'name': 'New', 'url': '/hola'},
-        {'name': 'Offerts', 'url': '/hola'},
-        {'name': 'Categories', 'url': '/hola'},
+        {'name': 'New', 'url': '#'},
+        {'name': 'Offerts', 'url': '#'},
+        {'name': 'Categories', 'url': '#'},
     ]}
 
     for item in menu['menu']:
