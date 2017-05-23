@@ -25,11 +25,11 @@ class ProductDetailView(DetailView):
 class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     form_class = ProductModelForm
-    pk_url_kwarg = 'slug'
+    pk_url_kwarg = 'uuid'
 
     def dispatch(self, request, *args, **kwargs):
         # if request.user is owner of the shop can publish
-        self.shop = get_object_or_404(Shop, slug=self.kwargs['slug'])
+        self.shop = get_object_or_404(Shop, slug=self.kwargs['shop_slug'])
         if not request.user == self.shop.owner:
             return HttpResponse('404')
         return super(ProductCreateView, self).dispatch(request, *args, **kwargs)
@@ -45,12 +45,12 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
 
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
-    fields = ('name', 'categories', 'description', 'photo',)
-    pk_url_kwarg = 'slug'
+    form_class = ProductModelForm
+    pk_url_kwarg = 'uuid'
 
     def dispatch(self, request, *args, **kwargs):
         # if request.user is owner of the shop can update
-        self.shop = get_object_or_404(Shop, slug=self.kwargs['slug'])
+        self.shop = get_object_or_404(Shop, slug=self.kwargs['shop_slug'])
         if not request.user == self.shop.owner:
             return HttpResponse('404')
         return super(ProductUpdateView, self).dispatch(request, *args, **kwargs)
@@ -60,14 +60,14 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
 
 class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
-    pk_url_kwarg = 'slug'
+    pk_url_kwarg = 'uuid'
 
     def dispatch(self, request, *args, **kwargs):
         # if request.user is owner of the shop can update
-        self.shop = get_object_or_404(Shop, slug=self.kwargs['slug'])
+        self.shop = get_object_or_404(Shop, slug=self.kwargs['shop_slug'])
         if not request.user == self.shop.owner:
             return HttpResponse('404')
         return super(ProductDeleteView, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
-        return reverse_lazy('shop:detail', args=self.object.shop.slug)
+        return reverse_lazy('shop:detail', args=(self.object.shop.slug,))
