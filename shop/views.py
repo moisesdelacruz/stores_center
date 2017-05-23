@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -11,6 +12,7 @@ from shop.models import Shop
 from shop.forms import ShopModelForm
 
 from product.models import Product
+from product.mixins import IsOwnerMixin
 
 # Create your views here.
 
@@ -22,10 +24,9 @@ class ShopDetailView(DetailView):
         context['products'] = Product.objects.filter(shop=self.object)
         return context
 
-class ShopCreateView(CreateView):
+class ShopCreateView(LoginRequiredMixin, CreateView):
     model = Shop
     form_class = ShopModelForm
-    # fields = ('name', 'description', 'logo', 'cover_image',)
 
     def form_valid(self, form):
         __object = form.save(commit=False)
@@ -37,29 +38,15 @@ class ShopCreateView(CreateView):
         return reverse_lazy('shop:detail', args=(self.object.slug,))
 
 
-class ShopUpdateView(UpdateView):
+class ShopUpdateView(LoginRequiredMixin, IsOwnerMixin, UpdateView):
     model = Shop
     form_class = ShopModelForm
-
-    def dispatch(self, request, *args, **kwargs):
-        # if request.user is owner of the shop can edit
-        self.shop = get_object_or_404(Shop, slug=self.kwargs['slug'])
-        if not request.user == self.shop.owner:
-            return HttpResponse('404')
-        return super(ShopUpdateView, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
         return reverse_lazy('shop:detail', args=(self.object.slug,))
 
-class ShopDeleteView(DeleteView):
+class ShopDeleteView(LoginRequiredMixin, IsOwnerMixin, DeleteView):
     model = Shop
-
-    def dispatch(self, request, *args, **kwargs):
-        # if request.user is owner of the shop can edit
-        self.shop = get_object_or_404(Shop, slug=self.kwargs['slug'])
-        if not request.user == self.shop.owner:
-            return HttpResponse('404')
-        return super(ShopDeleteView, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
         return reverse_lazy('users:profile', args=(self.request.user.username,))
