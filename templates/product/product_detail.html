@@ -5,19 +5,42 @@
 {% endblock %}
 
 {% block main %}
-  <div class="row container">
-    <h1 class="title">{{ object.name }}</h1>
-    <img src="{{ object.photo.url }}" width="450" height="450"/>
-    <p class="title">
-      {{ object.price }}
-    </p>
-    {% if object.discount %}
-      <p>
-        {{ object.discount }}%
-      </p>
+  <div class="row container product_detail">
+    <div class="col s12 m6">
+      <img src="{{ object.photo.url }}" class="photo" width="450" height="450" />
+    </div>
+    <div class="col s12 m6">
+      <div class="row">
+        <h3 class="title">{{ object.name|title }}</h3>
+        <p>{{ object.description }}</p>
+      </div>
+      <div class="row">
+        <h4 class="price">
+          {{ object.price }}
+        </h4>
+      </div>
+      <div class="row">
+        <div class="col s12 m6">
+          <input type="number" min="1" value="1" />
+          <a href="#!" class="waves-effect waves-light btn orange">
+            <i class="material-icons left">add_shopping_cart</i>
+            add to cart
+          </a>
+        </div>
+      </div>
+    </div>
+    {% if request.user == object.shop.owner %}
+      <div class="fixed-action-btn horizontal">
+        <a class="btn-floating btn-large red">
+          <i class="large material-icons">mode_edit</i>
+        </a>
+        <ul>
+          <li><a class="btn-floating red"><i class="material-icons">insert_chart</i></a></li>
+          <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
+          <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
+          <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
+        </ul>
+      </div>
     {% endif %}
-    <p>
-      {{ object.description }}
-    </p>
   </div>
 {% endblock %}
