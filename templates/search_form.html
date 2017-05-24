@@ -5,7 +5,7 @@
         <select class="browser-default" name="category">
           <option value="" disabled selected>Category</option>
           {% for cat in categories %}
-            <option value="{{ cat.id }}">{{ cat.name }}</option>
+            <option value="{{ cat.slug }}" {% if cat.active %} selected {% endif %}>{{ cat.name }}</option>
           {% endfor %}
         </select>
       </div>
@@ -14,7 +14,7 @@
       <div class="row">
         <div class="input-field col s9">
           <div class="row">
-            <input placeholder="Search" id="search" type="text" class="validate">
+            <input placeholder="Search" id="search" name="search" type="text" value="{{ request.GET.search }}" class="validate">
           </div>
         </div>
         <div class="input-field col s3">
