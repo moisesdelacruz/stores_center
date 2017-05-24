@@ -6825,6 +6825,10 @@ blockquote {
 .collection .collection-item.active {
   color: white !important; }
 
+.collection .collection-item.header {
+  background-color: #eee;
+  color: black !important; }
+
 .social {
   margin: 0; }
 
