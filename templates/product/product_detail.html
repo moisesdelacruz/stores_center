@@ -8,9 +8,11 @@
   <div class="row container product_detail">
     <div class="col s12 m6">
       <img src="{{ object.photo.url }}" class="row photo" width="450" height="450" />
-      <div class="row price">
+      <div class="row">
         {% for cat in object.categories.all %}
-          <span>{{ cat }}</span>
+          <div class="chip">
+            <a href="{{ cat.slug }}">{{ cat.title }}</a>
+          </div>
         {% endfor %}
       </div>
     </div>
