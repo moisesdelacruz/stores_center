@@ -1,0 +1,30 @@
+<div class="row">
+  <form id="search_form" method="get">
+    <div class="input-field col s4">
+      <div class="row">
+        <select class="browser-default" name="category">
+          <option value="" disabled selected>Category</option>
+          {% for cat in categories %}
+            <option value="{{ cat.id }}">{{ cat.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+    <div class="col s8">
+      <div class="row">
+        <div class="input-field col s9">
+          <div class="row">
+            <input placeholder="Search" id="search" type="text" class="validate">
+          </div>
+        </div>
+        <div class="input-field col s3">
+          <div class="row">
+            <button class="btn waves-effect waves-light btn-flat btn-large" type="submit" name="action">
+              <i class="material-icons">search</i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

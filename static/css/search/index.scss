@@ -1,0 +1,20 @@
+#search_form #search {
+  background-color: transparent;
+  border: 1px solid #eee;
+  border-radius: 0;
+  outline: none;
+  height: 2.85rem;
+}
+
+#search_form select {
+  background-color: #eee;
+}
+
+#search_form button {
+  background-color: $primary-color;
+  color: white;
+  height: 3rem;
+  border: 1px solid #eee;
+  border-radius: initial;
+  line-height: 3rem;
+}
