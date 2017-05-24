@@ -48,10 +48,10 @@
 
   <div class="row container">
     {% for product in products %}
-      <div class="col s12 m6">
+      <div class="col s12 m6 product_list">
         <div class="card horizontal">
           <div class="card-image">
-            <img src="{{ product.photo.url }}" width="100" height="190">
+            <img class="photo" src="{{ product.photo.url }}" width="120" height="190">
           </div>
           <div class="card-stacked">
             <div class="card-content">
