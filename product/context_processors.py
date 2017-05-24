@@ -20,7 +20,7 @@ def categories(request):
     categories = {'categories': []}
     for cat in object:
         if request.path == cat.slug:
-            categories['categories'].append({'name': cat.title, 'url': '/category/'+cat.slug, 'active': True})
+            categories['categories'].append({'name': cat.title, 'id': cat.id, 'url': '/category/%s' % cat.slug, 'active': True})
         else:
-            categories['categories'].append({'name': cat.title, 'url': '/category/'+cat.slug, 'active': False})
+            categories['categories'].append({'name': cat.title, 'id': cat.id, 'url': '/category/%s' % cat.slug, 'active': False})
     return categories
