@@ -19,7 +19,7 @@
             </div>
             <div class="card-stacked">
               <div class="card-content">
-                <h5><a href="{% url 'product:detail' object.pk %}" class="title">{{ object.name|title }}</a></h5>
+                <h6><a href="{% url 'product:detail' object.pk %}" class="title">{{ object.name|title }}</a></h6>
                 {% if object.new_price %}
                   <a href="#" class="price-old">{{ object.price }}</a>
                   <a href="#" class="price">${{ object.new_price }}</a>
