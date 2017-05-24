@@ -2,7 +2,7 @@
     <div class="collection">
       <a href="#" class="collection-item active">Categories</a>
       {% for cat in categories %}
-        <a href="{{ cat.url }}"
+        <a href="?category={{ cat.slug }}"
           {% if cat.active %}
             class="collection-item active"
           {% else %}

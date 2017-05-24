@@ -19,8 +19,8 @@ def categories(request):
     object = Category.objects.all()
     categories = {'categories': []}
     for cat in object:
-        if request.path == cat.slug:
-            categories['categories'].append({'name': cat.title, 'id': cat.id, 'url': '/category/%s' % cat.slug, 'active': True})
+        if request.GET.get('category') == cat.slug:
+            categories['categories'].append({'name': cat.title, 'slug': cat.slug, 'active': True})
         else:
-            categories['categories'].append({'name': cat.title, 'id': cat.id, 'url': '/category/%s' % cat.slug, 'active': False})
+            categories['categories'].append({'name': cat.title, 'slug': cat.slug, 'active': False})
     return categories
