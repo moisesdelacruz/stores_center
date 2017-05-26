@@ -19,6 +19,45 @@ from shop.models import Shop
 class ProductListView(ListView):
     model = Product
 
+    def get_queryset(self):
+        query = self.request.GET.get('search')
+        category = self.request.GET.get('category')
+        fields = {'categories__slug': category}
+        filter = {}
+        for k, v in fields.items():
+            if v:
+                filter[k] = v
+
+        queryset = self.model.objects.filter(**filter)
+        if query:
+            queryset = self.filter_queryset(queryset, query)
+
+        return queryset
+
+    def filter_queryset(self, queryset, search):
+        list_kws_str = search.lower().split()
+        results = []
+
+        for item in queryset:
+            coincidence = 0
+            for kw_str in list_kws_str:
+                for index in range(len(item.name)):
+                    if item.name.lower()[index:index+len(kw_str)] == kw_str:
+                        coincidence += 1
+            item.coincidence = coincidence
+
+            if coincidence:
+                results.append(item)
+
+        results = sorted(results, key=lambda key: key.coincidence, reverse=True)
+        pk_list = [pk.id for pk in results]
+        clauses = ' '.join([
+            "WHEN id='%s' THEN %s" % (pk, i) for i, pk in enumerate(pk_list)])
+        ordering = 'CASE %s END' % clauses
+
+        return self.model.objects.filter(pk__in=pk_list).extra(
+            select={'ordering': ordering}, order_by=('ordering',))
+
     def get_context_data(self, **kwargs):
         context = super(ProductListView, self).get_context_data(**kwargs)
         for index, product in enumerate(self.object_list):
