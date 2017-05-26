@@ -18,7 +18,8 @@
           <a href="{% url 'users:profile' object.owner %}">@{{ object.owner }}</a>
           <div class="row"></div>
           {% if request.user == object.owner %}
-            <a href="{% url 'product:new' object.slug %}" class="waves-effect waves-light btn"><i class="material-icons left">add</i>publish</a>
+          <a href="{% url 'product:new' object.slug %}" class="waves-effect waves-light btn hide-on-med-and-down"><i class="material-icons left">add</i>publish</a>
+            <a href="{% url 'product:new' object.slug %}" class="waves-effect waves-light btn hide-on-large-only">publish</a>
             <div class="fixed-action-btn horizontal">
               <a class="btn-floating btn-large">
                 <i class="large material-icons">mode_edit</i>
@@ -48,19 +49,29 @@
 
   <div class="row container">
     {% for product in products %}
-      <div class="col s12 m6 product_list">
-        <div class="card horizontal">
-          <div class="card-image">
-            <img class="photo" src="{{ product.photo.url }}" width="120" height="190">
+      <div class="card horizontal product_list">
+        <div class="card-image">
+          <img src="{{ product.photo.url }}" class="photo" width="120" height="190">
+        </div>
+        <div class="card-stacked">
+          <div class="card-content">
+            <h6><a href="{% url 'product:detail' product.pk %}" class="title">{{ product.name|title }}</a></h6>
+            {% if product.new_price %}
+              <a href="#" class="price-old">{{ product.price }}</a>
+              <a href="#" class="price">${{ product.new_price }}</a>
+            {% else %}
+              <a href="#" class="price">{{ product.price }}</a>
+            {% endif %}
           </div>
-          <div class="card-stacked">
-            <div class="card-content">
-              <h5 class="title" title="{{ product.name|title }}">{{ product.name|title|truncatechars:20 }}</h5>
-              <p>{{ product.description|truncatechars:60 }}</p>
-            </div>
-            <div class="card-action">
-              <a href="#">buy now</a>
-            </div>
+          <div class="card-action">
+            <span class="rating left">
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star-o" aria-hidden="true"></i>
+            </span>
+            <a href="#" class="btn btn-floating orange pulse right"><i class="material-icons">add_shopping_cart</i></a>
           </div>
         </div>
       </div>
