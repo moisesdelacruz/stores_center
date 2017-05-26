@@ -8,7 +8,7 @@ import uuid
 
 # funcion para almacenamiento de imagenes
 def content_file_name(instance, filename):
-    return '/'.join(['products', str(instance), filename])
+    return '/'.join(['products', str(instance.slug), filename])
 
 # Create your models here.
 
