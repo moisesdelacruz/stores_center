@@ -6,7 +6,6 @@ def menu(request):
         {'name': 'Home', 'url': reverse('product:list')},
         {'name': 'New', 'url': '#'},
         {'name': 'Offerts', 'url': '#'},
-        {'name': 'Categories', 'url': '#'},
     ]}
 
     for item in menu['menu']:
