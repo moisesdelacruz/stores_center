@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 
 {% block title %}
-  New Shop
+  {% if not object %}
+    New Shop
+  {% else %}
+    {{ object.name|title }} - edit
+  {% endif %}
 {% endblock %}
 
 {% block main %}
@@ -37,7 +41,8 @@
           {% endif %}
         {% endfor %}
         <div class="row">
-          <button class="btn waves-effect waves-light right" type="submit" name="action">Create
+          <button class="btn waves-effect waves-light right" type="submit" name="action">
+            {% if not object %}Create{% else %}Save Changes{% endif %}
             <i class="material-icons right">save</i>
           </button>
         </div>
