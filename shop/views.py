@@ -21,7 +21,12 @@ class ShopDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(ShopDetailView, self).get_context_data(**kwargs)
-        context['products'] = Product.objects.filter(shop=self.object)
+        self.product_list = Product.objects.filter(shop=self.object)
+        for index, product in enumerate(self.product_list):
+            if product.discount:
+                self.product_list[index].new_price = (float(product.price)
+                    - ((product.discount * float(product.price)) / 100))
+        context['products'] = self.product_list
         return context
 
 class ShopCreateView(LoginRequiredMixin, CreateView):
