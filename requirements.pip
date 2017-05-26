@@ -1,8 +1,12 @@
 appdirs==1.4.3
 Django==1.11.1
+django-money==0.10.2
 olefile==0.44
 packaging==16.8
 Pillow==4.1.1
+psycopg2==2.7.1
+py-moneyed==0.7.0
 pyparsing==2.2.0
 pytz==2017.2
 six==1.10.0
+-e git+https://github.com/mariocesar/sorl-thumbnail.git@66f0f355a976c76d712fdb83927175840c3a2478#egg=sorl_thumbnail
