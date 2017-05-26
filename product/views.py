@@ -27,8 +27,10 @@ class ProductListView(ListView):
         for k, v in fields.items():
             if v:
                 filter[k] = v
+        # query to database
+        queryset = self.model.objects.filter(**filter).order_by('-created_at')
 
-        queryset = self.model.objects.filter(**filter)
+        # if GET has query, so
         if query:
             queryset = self.filter_queryset(queryset, query)
 
