@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load thumbnail %}
+
 {% block title %}
   {{ object.name|title }}
 {% endblock %}
@@ -11,7 +13,7 @@
         <div class="col s12 m3 center">
           <div class="shop_logo">
             {% if object.logo %}
-              <img src="{{ object.logo.url }}" width="320" height="320" alt="" />
+              <img src="{{ object.logo.url }}" width="320" height="320" class="responsive-img" />
             {% endif %}
           </div>
           <h5>{{ object.name|title }}</h5>
@@ -25,16 +27,18 @@
                 <i class="large material-icons">mode_edit</i>
               </a>
               <ul>
-                <li><a class="btn-floating blue" href="{% url 'shop:delete' object.slug %}"><i class="material-icons">mode_edit</i></a></li>
-                <li><a class="btn-floating red" href="{% url 'shop:edit' object.slug %}"><i class="material-icons">delete</i></a></li>
+                <li><a class="btn-floating blue" href="{% url 'shop:edit' object.slug %}"><i class="material-icons">mode_edit</i></a></li>
+                <li><a class="btn-floating red" href="{% url 'shop:delete' object.slug %}"><i class="material-icons">delete</i></a></li>
               </ul>
             </div>
           {% endif %}
         </div>
         <div class="col m9 center hide-on-small-only">
-          <div class="cover_image">
+          <div class="row cover_image">
             {% if object.cover_image %}
-              <img src="{{ object.cover_image.url }}" width="658" height="320" alt="" />
+              {% thumbnail object.cover_image "800x380" crop="top" as img %}
+                  <img src="{{ img.url }}" width="{{ img.width }}" height="{{ img.height }}" class="responsive-img">
+              {% endthumbnail %}
             {% endif %}
           </div>
           <div class="row">

@@ -29,6 +29,10 @@ blockquote {
   border-left: 5px solid #47BAC1 !important;
 }
 
+.wrapper {
+  max-width: 1012px
+}
+
 .title {
   color: $primary-color;
 }
@@ -110,4 +114,36 @@ blockquote {
 .no_found_text {
   text-align: center;
   color: #999;
+}
+
+@media #{$small-and-down} {
+  // styles for small screens and down
+  .wrapper {
+    width: 95%;
+  }
+}
+@media #{$medium-and-up} {
+  // styles for medium screens and larger
+  .wrapper {
+    width: 90%;
+  }
+}
+@media #{$medium-and-down} {
+  // styles for medium screens and down
+  .wrapper {
+    width: 95%;
+  }
+}
+@media #{$large-and-up} {
+  // styles for large screens and up
+  .wrapper {
+    width: 85%;
+  }
+}
+
+@media #{$extra-large-and-up} {
+  // styles for extra large screens and up
+  .wrapper {
+    width: 100%;
+  }
 }
