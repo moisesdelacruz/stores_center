@@ -6,8 +6,10 @@
 
 {% block main %}
   <div class="row container product_detail">
-    <div class="col s12 m6">
-      <img src="{{ object.photo.url }}" class="row photo" width="450" height="450" />
+    <div class="col s12 m6 product_left">
+      <div class="row">
+        <img src="{{ object.photo.url }}" class="photo" width="450" height="450" />
+      </div>
       <div class="row">
         {% for cat in object.categories.all %}
           <div class="chip">
@@ -16,7 +18,7 @@
         {% endfor %}
       </div>
     </div>
-    <div class="col s12 m6">
+    <div class="col s12 m6 product_right">
       <div class="row">
         <h3 class="title">{{ object.name|title }}</h3>
         <p>{{ object.description }}</p>
@@ -45,11 +47,13 @@
       </div>
       <div class="row">
         <div class="col s12 m6">
-          <input type="number" min="1" value="1" />
-          <a href="#!" class="waves-effect waves-light btn orange">
-            <i class="material-icons left">add_shopping_cart</i>
-            add to cart
-          </a>
+          <div class="row">
+            <input type="number" min="1" value="1" />
+            <a href="#!" class="waves-effect waves-light btn orange">
+              <i class="material-icons left">add_shopping_cart</i>
+              add to cart
+            </a>
+          </div>
         </div>
       </div>
     </div>

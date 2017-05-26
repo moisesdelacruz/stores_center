@@ -13,3 +13,14 @@
   width: 100% !important;
   height: 100% !important;
 }
+
+@media #{$medium-and-up} {
+
+  .product_left .row {
+    padding-right: .2em;
+  }
+
+  .product_right .row {
+    padding-left: .2em;
+  }
+}

@@ -6778,6 +6778,12 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
   width: 100% !important;
   height: 100% !important; }
 
+@media only screen and (min-width: 601px) {
+  .product_left .row {
+    padding-right: .2em; }
+  .product_right .row {
+    padding-left: .2em; } }
+
 #search_form #search {
   background-color: transparent;
   border: 1px solid #eee;
