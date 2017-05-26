@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '_puau&*9hb3gs4r=3r9oe!)h*7dqloypi6l1x0popqawn5a)zx'
+SECRET_KEY = os.getenv('S_CENTER_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -82,8 +82,12 @@ WSGI_APPLICATION = 'stores_center.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.getenv('S_CENTER_NAME'),
+        'USER': os.getenv('USER_DB'),
+        'PASSWORD': os.getenv('PASS_DB'),
+        'HOST': 'localhost',
+        'PORT': ''
     }
 }
 
