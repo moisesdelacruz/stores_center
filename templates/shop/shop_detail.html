@@ -8,7 +8,7 @@
   <div class="row shop container">
     <div class="col s12 m12">
       <div class="row margin-top">
-        <div class="col s12 m4 center">
+        <div class="col s12 m3 center">
           <div class="shop_logo">
             {% if object.logo %}
               <img src="{{ object.logo.url }}" width="320" height="320" alt="" />
@@ -18,7 +18,7 @@
           <a href="{% url 'users:profile' object.owner %}">@{{ object.owner }}</a>
           <div class="row"></div>
           {% if request.user == object.owner %}
-            <a href="{% url 'product:new' object.slug %}" class="waves-effect waves-light btn"><i class="material-icons left">add</i>new product</a>
+            <a href="{% url 'product:new' object.slug %}" class="waves-effect waves-light btn"><i class="material-icons left">add</i>publish</a>
             <div class="fixed-action-btn horizontal">
               <a class="btn-floating btn-large">
                 <i class="large material-icons">mode_edit</i>
@@ -30,7 +30,7 @@
             </div>
           {% endif %}
         </div>
-        <div class="col m8 center hide-on-small-only">
+        <div class="col m9 center hide-on-small-only">
           <div class="cover_image">
             {% if object.cover_image %}
               <img src="{{ object.cover_image.url }}" width="658" height="320" alt="" />
