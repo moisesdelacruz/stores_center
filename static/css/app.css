@@ -6873,3 +6873,7 @@ blockquote {
 
 .chip a {
   color: #252525; }
+
+.no_found_text {
+  text-align: center;
+  color: #999; }

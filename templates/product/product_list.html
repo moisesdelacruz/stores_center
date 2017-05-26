@@ -12,9 +12,13 @@
     <div class="col s12 m8 white">
       {% include "components/search_form.html" %}
       <div class="row">
-        {% for product in object_list %}
-          {% include "components/card_product.html" %}
-        {% endfor %}
+        {% if object_list %}
+          {% for product in object_list %}
+            {% include "components/card_product.html" %}
+          {% endfor %}
+        {% else %}
+          <h5 class="no_found_text">No Items Found</h5>
+        {% endif %}
       </div>
     </div>
   </div>
