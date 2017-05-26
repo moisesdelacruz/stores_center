@@ -7,38 +7,13 @@
 {% block main %}
   <div class="row container">
     <div class="col s12 m4 hide-on-small-only white">
-      {% include "cat_menu.html" %}
+      {% include "components/cat_menu.html" %}
     </div>
     <div class="col s12 m8 white">
-      {% include "search_form.html" %}
+      {% include "components/search_form.html" %}
       <div class="row">
-        {% for object in object_list %}
-          <div class="card horizontal product_list">
-            <div class="card-image">
-              <img src="{{ object.photo.url }}" class="photo" width="120" height="190">
-            </div>
-            <div class="card-stacked">
-              <div class="card-content">
-                <h6><a href="{% url 'product:detail' object.pk %}" class="title">{{ object.name|title }}</a></h6>
-                {% if object.new_price %}
-                  <a href="#" class="price-old">{{ object.price }}</a>
-                  <a href="#" class="price">${{ object.new_price }}</a>
-                {% else %}
-                  <a href="#" class="price">{{ object.price }}</a>
-                {% endif %}
-              </div>
-              <div class="card-action">
-                <span class="rating left">
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star-o" aria-hidden="true"></i>
-                </span>
-                <a href="#" class="btn btn-floating orange pulse right"><i class="material-icons">add_shopping_cart</i></a>
-              </div>
-            </div>
-          </div>
+        {% for product in object_list %}
+          {% include "components/card_product.html" %}
         {% endfor %}
       </div>
     </div>

@@ -49,32 +49,7 @@
 
   <div class="row container">
     {% for product in products %}
-      <div class="card horizontal product_list">
-        <div class="card-image">
-          <img src="{{ product.photo.url }}" class="photo" width="120" height="190">
-        </div>
-        <div class="card-stacked">
-          <div class="card-content">
-            <h6><a href="{% url 'product:detail' product.pk %}" class="title">{{ product.name|title }}</a></h6>
-            {% if product.new_price %}
-              <a href="#" class="price-old">{{ product.price }}</a>
-              <a href="#" class="price">${{ product.new_price }}</a>
-            {% else %}
-              <a href="#" class="price">{{ product.price }}</a>
-            {% endif %}
-          </div>
-          <div class="card-action">
-            <span class="rating left">
-              <i class="fa fa-star" aria-hidden="true"></i>
-              <i class="fa fa-star" aria-hidden="true"></i>
-              <i class="fa fa-star" aria-hidden="true"></i>
-              <i class="fa fa-star" aria-hidden="true"></i>
-              <i class="fa fa-star-o" aria-hidden="true"></i>
-            </span>
-            <a href="#" class="btn btn-floating orange pulse right"><i class="material-icons">add_shopping_cart</i></a>
-          </div>
-        </div>
-      </div>
+      {% include "components/card_product.html" %}
     {% endfor %}
   </div>
 {% endblock %}
