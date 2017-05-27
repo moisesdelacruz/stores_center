@@ -29,7 +29,7 @@ class Category(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.title
+        return self.title.encode('utf-8').strip()
 
     def save(self, *args, **kwargs):
 		if self.title:
@@ -52,7 +52,7 @@ class Product(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.name
+        return self.name.encode('utf-8').strip()
 
     def save(self, *args, **kwargs):
 		if self.id:

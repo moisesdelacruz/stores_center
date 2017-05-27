@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'shop.apps.ShopConfig',
     'product.apps.ProductConfig',
     'users.apps.UsersConfig',
+    'review.apps.ReviewConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
