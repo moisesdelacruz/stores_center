@@ -13,6 +13,8 @@ from product.models import Product
 from product.forms import ProductModelForm
 from product.mixins import IsOwnerMixin
 from shop.models import Shop
+from review.models import Review
+
 
 # Create your views here.
 
@@ -77,6 +79,14 @@ class ProductDetailView(DetailView):
         if self.object.discount:
             self.object.new_price = (float(self.object.price)
                 - ((self.object.discount * float(self.object.price)) / 100))
+        reviews = Review.objects.filter(product=self.object).values_list('rating', flat=True)
+        if reviews:
+            sum = 0
+            for review in reviews:
+                sum+=int(review)
+            rating = sum * 5 / (5*len(reviews))
+            self.object.rating = rating
+        
         return context
 
 class ProductCreateView(LoginRequiredMixin, IsOwnerMixin, CreateView):
