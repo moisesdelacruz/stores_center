@@ -7,4 +7,6 @@ from review.models import Review
 # Register your models here.
 
 
-admin.site.register(Review)
+@admin.register(Review)
+class ReviewModelAdmin(admin.ModelAdmin):
+    list_display = ('user', 'product', 'rating', 'comment',)
