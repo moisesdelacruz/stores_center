@@ -24,5 +24,5 @@ urlpatterns = [
     url(r'^', include('users.urls', namespace='users')),
     url(r'^shop/', include('shop.urls', namespace='shop')),
     url(r'^', include('product.urls', namespace='product')),
-    url(r'^review', include('review.urls', namespace='review')),
+    url(r'^review/', include('review.urls', namespace='review')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,27 @@
+#review_content {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 2;
+}
+
+#review_content .content_comment {
+  margin: 0 auto;
+  width: 400px;
+  height: 250px;
+  background-color: white;
+  padding: 1em;
+  border-radius: 2px;
+}
+
+#review_content .title {
+  font-size: 2em;
+  text-align: center;
+}
+
+#review_content textarea#comment {
+  height: 100px;
+}

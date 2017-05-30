@@ -6797,6 +6797,30 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
   border-radius: initial;
   line-height: 3rem; }
 
+#review_content {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 2; }
+
+#review_content .content_comment {
+  margin: 0 auto;
+  width: 400px;
+  height: 250px;
+  background-color: white;
+  padding: 1em;
+  border-radius: 2px; }
+
+#review_content .title {
+  font-size: 2em;
+  text-align: center; }
+
+#review_content textarea#comment {
+  height: 100px; }
+
 body {
   background-color: #EEEEEE; }
 
@@ -6857,6 +6881,9 @@ blockquote {
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: 1.3em; }
+
+.rating .fa.active {
+  color: orange; }
 
 .rating:hover {
   color: #47BAC1; }
