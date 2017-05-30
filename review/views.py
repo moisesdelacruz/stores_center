@@ -1,46 +1,29 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.http import JsonResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView
 from review.models import Review
+from product.models import Product
+from utils.uuid_validate import validate_uuid
 
 # Create your views here.
 
+def review(request):
+    if request.is_ajax():
+        if validate_uuid(request.POST.get('product[id]')):
+            product = get_object_or_404(Product, id=request.POST.get('product[id]'))
 
-class AjaxableResponseMixin(object):
-    """
-    Mixin to add AJAX support to a form.
-    Must be used with an object-based FormView (e.g. CreateView)
-    """
-    def form_invalid(self, form):
-        response = super(AjaxableResponseMixin, self).form_invalid(form)
-        if self.request.is_ajax():
-            return JsonResponse(form.errors, status=400)
+            review = Review.objects.create(
+                user=request.user,
+                product=product,
+                rating=request.POST.get('product[rating]'),
+                comment=request.POST.get('comment')
+            )
+            return JsonResponse({'message': 'created'}, status=202)
         else:
-            return response
-
-    def form_valid(self, form):
-        # We make sure to call the parent's form_valid() method because
-        # it might do some processing (in the case of CreateView, it will
-        # call form.save() for example).
-        response = super(AjaxableResponseMixin, self).form_valid(form)
-        if self.request.is_ajax():
-            data = {
-                'pk': self.object.pk,
-            }
-            return JsonResponse(data)
-        else:
-            return response
-
-class ReviewCreateView(LoginRequiredMixin, AjaxableResponseMixin, CreateView):
-    model = Review
-    fields = ['rating', 'comment']
-
-    def form_valid(self, form):
-        review = form.save(commit=False)
-        review.user = self.request.user
-        review.product = self.kwargs.get('product')
-        self.object = review.save()
-        return self.object
+            return JsonResponse({'error': 'uuid not valid'}, status=400)
+    else:
+        return JsonResponse({'error': 'Request has to be of ajax type'}, status=400)
