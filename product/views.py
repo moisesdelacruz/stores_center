@@ -76,7 +76,7 @@ class ProductListView(ListView):
                 sum = 0
                 for review in reviews:
                     sum+=int(review)
-                rating = sum * 5 / (5*len(reviews))
+                rating = float(sum) * 5 / (5*len(reviews))
                 self.object_list[index].rating = rating
         return context
 
@@ -96,7 +96,7 @@ class ProductDetailView(DetailView):
             sum = 0
             for review in reviews:
                 sum+=int(review.rating)
-            rating = sum * 5 / (5*len(reviews))
+            rating = float(sum) * 5 / (5*len(reviews))
             self.object.rating = rating
         # return all his reviews
         context['reviews'] = reviews
