@@ -69,4 +69,10 @@
       </div>
     {% endif %}
   </div>
+  <div class="container white row">
+    <h4>reviews</h4>
+    {% for review in reviews %}
+      {% include "components/card_comment.html" %}
+    {% endfor %}
+  </div>
 {% endblock %}

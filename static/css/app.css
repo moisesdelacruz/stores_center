@@ -6821,6 +6821,13 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
 #review_content textarea#comment {
   height: 100px; }
 
+.card_comment .username {
+  color: #47BAC1;
+  font-size: 1.4em; }
+
+.card_comment .fa.fa-star {
+  color: orange; }
+
 body {
   background-color: #EEEEEE; }
 
