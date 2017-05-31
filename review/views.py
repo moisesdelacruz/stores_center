@@ -15,14 +15,15 @@ def review(request):
     if request.is_ajax():
         if validate_uuid(request.POST.get('product[id]')):
             product = get_object_or_404(Product, id=request.POST.get('product[id]'))
-
-            review = Review.objects.create(
-                user=request.user,
-                product=product,
-                rating=request.POST.get('product[rating]'),
-                comment=request.POST.get('comment')
+            obj, created = Review.objects.update_or_create(
+                user=request.user, product=product,
+                defaults={'comment': request.POST.get('comment'),
+                    'rating': request.POST.get('product[rating]')},
             )
-            return JsonResponse({'message': 'created'}, status=202)
+            if created:
+                return JsonResponse({'success': 'created'}, status=201)
+            else:
+                return JsonResponse({'success': 'updated'}, status=201)
         else:
             return JsonResponse({'error': 'uuid not valid'}, status=400)
     else:
