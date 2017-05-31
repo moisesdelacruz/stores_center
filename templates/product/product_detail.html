@@ -22,7 +22,7 @@
       <div class="row">
         <h3 class="title">{{ object.name|title }}</h3>
         <p>{{ object.description }}</p>
-        <span class="rating left" data-product="{{ object.id }}">
+        <span class="rating left" data-product="{{ object.id }}" title="{{ object.rating }}">
           <i class="fa {% if object.rating >= 1 %}fa-star{% else %}fa-star-o{% endif %}" aria-hidden="true" data-index="1"></i>
           <i class="fa {% if object.rating >= 2 %}fa-star{% else %}fa-star-o{% endif %}" aria-hidden="true" data-index="2"></i>
           <i class="fa {% if object.rating >= 3 %}fa-star{% else %}fa-star-o{% endif %}" aria-hidden="true" data-index="3"></i>
