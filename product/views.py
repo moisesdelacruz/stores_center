@@ -65,9 +65,19 @@ class ProductListView(ListView):
     def get_context_data(self, **kwargs):
         context = super(ProductListView, self).get_context_data(**kwargs)
         for index, product in enumerate(self.object_list):
+            # add discount to products
             if product.discount:
                 self.object_list[index].new_price = (float(product.price)
                     - ((product.discount * float(product.price)) / 100))
+
+            # add rating to products
+            reviews = Review.objects.filter(product=product).values_list('rating', flat=True)
+            if reviews:
+                sum = 0
+                for review in reviews:
+                    sum+=int(review)
+                rating = sum * 5 / (5*len(reviews))
+                self.object_list[index].rating = rating
         return context
 
 class ProductDetailView(DetailView):
@@ -76,17 +86,20 @@ class ProductDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(ProductDetailView, self).get_context_data(**kwargs)
+        # add discount
         if self.object.discount:
             self.object.new_price = (float(self.object.price)
                 - ((self.object.discount * float(self.object.price)) / 100))
-        reviews = Review.objects.filter(product=self.object).values_list('rating', flat=True)
+        # add rating
+        reviews = Review.objects.filter(product=self.object)
         if reviews:
             sum = 0
             for review in reviews:
-                sum+=int(review)
+                sum+=int(review.rating)
             rating = sum * 5 / (5*len(reviews))
             self.object.rating = rating
-        
+        # return all his reviews
+        context['reviews'] = reviews
         return context
 
 class ProductCreateView(LoginRequiredMixin, IsOwnerMixin, CreateView):

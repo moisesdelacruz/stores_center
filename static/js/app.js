@@ -29,7 +29,7 @@ function fun_rating(event) {
   debugger;
   var product = {
     "id": el.parentElement.getAttribute('data-product'),
-    "name": el.parentElement.parentElement.parentElement.querySelectorAll('.title')[0].text,
+    "name": el.parentElement.parentElement.parentElement.querySelectorAll('.title')[0].innerText,
     "rating": star
   };
 
