@@ -1,0 +1,9 @@
+{% load convert_to_rank %}
+
+{% for i in 5|convert_to_rank %}
+  {% if rating < i %}
+    <i class="fa fa-star-o" aria-hidden="true" data-index="{{i}}"></i>
+  {% else %}
+    <i class="fa fa-star" aria-hidden="true" data-index="{{i}}"></i>
+  {% endif %}
+{% endfor %}

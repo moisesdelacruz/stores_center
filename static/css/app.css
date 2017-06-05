@@ -6798,7 +6798,7 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
   line-height: 3rem; }
 
 #review_content {
-  position: absolute;
+  position: fixed;
   background-color: rgba(0, 0, 0, 0.5);
   top: 0;
   bottom: 0;

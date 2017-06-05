@@ -9,6 +9,8 @@ from review.models import Review
 from product.models import Product
 from utils.uuid_validate import validate_uuid
 
+import json
+
 # Create your views here.
 
 def review(request):
@@ -20,10 +22,16 @@ def review(request):
                 defaults={'comment': request.POST.get('comment'),
                     'rating': request.POST.get('product[rating]')},
             )
-            if created:
-                return JsonResponse({'success': 'created'}, status=201)
-            else:
-                return JsonResponse({'success': 'updated'}, status=201)
+            object = ({
+                'product': {
+                    'id': str(obj.product.id),
+                    'name': obj.product.name
+                },
+                'user': obj.user.username,
+                'comment': obj.comment,
+                'rating': obj.rating
+            })
+            return JsonResponse({'object': json.dumps(object), 'created': created}, status=201)
         else:
             return JsonResponse({'error': 'uuid not valid'}, status=400)
     else:
