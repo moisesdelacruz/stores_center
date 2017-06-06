@@ -25,4 +25,5 @@ urlpatterns = [
     url(r'^shop/', include('shop.urls', namespace='shop')),
     url(r'^', include('product.urls', namespace='product')),
     url(r'^review/', include('review.urls', namespace='review')),
+    url(r'^shopping_cart/', include('shopping_cart.urls', namespace='shopping_cart')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
