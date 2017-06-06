@@ -24,6 +24,7 @@
               <li><a href="{% url 'auth:signup' %}">Signup</a></li>
             {% else %}
               <li><a href="{% url 'users:profile' request.user.username %}">@{{ request.user.username }}</a></li>
+              <li><a href="#!" class="orange"><strong>${{ request.user.money }}</strong></a></li>
               <li><a href="{% url 'auth:logout' %}">Logout</a></li>
             {% endif %}
           </ul>
