@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.db import models
 
 from product.models import Product, IntegerRangeField
-from django.contrib.auth.models import User
+from users.models import User
 
 # Create your models here.
 

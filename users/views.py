@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic.detail import DetailView
-from django.contrib.auth.models import User
+from users.models import User
 
 from shop.models import Shop
 
