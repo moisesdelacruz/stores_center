@@ -1,6 +1,9 @@
-<div class="row menu_cat">
+<div class="menu_cat">
     <div class="collection">
       <a href="#" class="collection-item header">Categories</a>
+      {% if not categories %}
+        <h6 class="no_found_text">Categories Not Found</h6>
+      {% endif %}
       {% for cat in categories %}
         <a href="?category={{ cat.slug }}"
           {% if cat.active %}
