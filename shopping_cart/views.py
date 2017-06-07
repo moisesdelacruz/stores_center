@@ -12,11 +12,12 @@ from utils.uuid_validate import validate_uuid
 
 # Create your views here.
 
-class CartProductView(LoginRequiredMixin, View):
+class CartProductAddView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         if request.is_ajax():
             if validate_uuid(request.POST.get('product[id]')):
-                product = get_object_or_404(Product, id=request.POST.get('product[id]'))
+                product = get_object_or_404(
+                    Product, id=request.POST.get('product[id]'))
                 obj, created = CartProduct.objects.get_or_create(
                     user=request.user,
                     product=product
@@ -32,8 +33,22 @@ class CartProductView(LoginRequiredMixin, View):
                         'username': obj.user.username
                     }
                 })
-                return JsonResponse({'object': object, 'created': created}, status=201)
+                return JsonResponse(
+                    {'object': object, 'created': created}, status=201)
             else:
                 return JsonResponse({'error': 'uuid not is valid'}, status=400)
         else:
-            return JsonResponse({'error': 'request mush be of ajax type'}, status=400)
+            return JsonResponse(
+                {'error': 'request mush be of ajax type'}, status=400)
+
+
+class CartProductDeleteView(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        if request.is_ajax():
+            try:
+                product = CartProduct.objects.get(
+                    pk=request.POST.get('product[id]'), user=request.user)
+                product.objects.delete()
+            except CartProduct.DoesNotExist:
+                return JsonResponse(
+                    {'error': 'product not exist in collection'}, status=404)
