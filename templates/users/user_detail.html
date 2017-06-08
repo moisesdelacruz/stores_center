@@ -48,8 +48,12 @@
     </div>
     <div class="col s12 m8 list_products">
       <h4 class="title center">Shopping Cart</h4>
-      <div class="progress">
-        <div class="indeterminate"></div>
+      <div class="row">
+        {% for item in products %}
+          {% with item.product as product %}
+            {% include "components/item_cart.html" %}
+          {% endwith %}
+        {% endfor %}
       </div>
     </div>
   </div>
