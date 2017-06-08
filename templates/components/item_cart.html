@@ -1,5 +1,6 @@
 {% load thumbnail %}
 
+{% with item.product as product %}
 <div class="card horizontal product" data-id="{{ product.id }}">
   <div class="card-image">
     {% thumbnail product.photo "120x190" crop="center" as img %}
@@ -22,13 +23,20 @@
     </div>
     <div class="card-action">
       <span class="right">
-        <a href="#" class="btn btn-floating red remove_from_cart" title="remove to cart">
-          <i class="material-icons">remove_shopping_cart</i>
-        </a>
-        <a href="#" class="btn btn-floating orange" title="buy now">
-          <i class="material-icons">shop</i>
-        </a>
+        {% if request.user == item.user %}
+          <a href="#" class="btn btn-floating red remove_from_cart" title="remove to cart">
+            <i class="material-icons">remove_shopping_cart</i>
+          </a>
+          <a href="#" class="btn btn-floating orange" title="buy now">
+            <i class="material-icons">shop</i>
+          </a>
+        {% else %}
+          <a href="#" class="btn btn-floating orange add_to_cart" title="add to cart">
+            <i class="material-icons">add_shopping_cart</i>
+          </a>
+        {% endif %}
       </span>
     </div>
   </div>
 </div>
+{% endwith %}

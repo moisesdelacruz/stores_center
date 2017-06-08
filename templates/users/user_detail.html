@@ -50,9 +50,7 @@
       <h4 class="title center">Shopping Cart</h4>
       <div class="row">
         {% for item in products %}
-          {% with item.product as product %}
-            {% include "components/item_cart.html" %}
-          {% endwith %}
+          {% include "components/item_cart.html" %}
         {% endfor %}
       </div>
     </div>
