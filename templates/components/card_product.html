@@ -1,6 +1,6 @@
 {% load thumbnail %}
 
-<div class="card horizontal product_list">
+<div class="card horizontal product" data-id="{{ product.id }}">
   <div class="card-image">
     {% thumbnail product.photo "120x190" crop="center" as img %}
         <img src="{{ img.url }}" width="{{ img.width }}" height="{{ img.height }}">
@@ -26,7 +26,7 @@
           {% include "components/stars.html" %}
         {% endwith %}
       </span>
-      <a href="#" class="btn btn-floating orange right">
+      <a href="#" class="btn btn-floating orange right add_to_cart">
         <i class="material-icons">add_shopping_cart</i>
       </a>
     </div>
