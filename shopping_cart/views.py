@@ -47,9 +47,14 @@ class CartProductDeleteView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         if request.is_ajax():
             try:
-                product = CartProduct.objects.get(
-                    pk=request.POST.get('product[id]'), user=request.user)
-                product.objects.delete()
+                if validate_uuid(request.POST.get('product')):
+                    product = CartProduct.objects.get(
+                        product=request.POST.get('product'), user=request.user)
+                    product.delete()
+                    return JsonResponse(
+                        {'success': True}, status=200)
+                else:
+                    JsonResponse({'error': 'product id not valid'}, status=400)
             except CartProduct.DoesNotExist:
                 return JsonResponse(
-                    {'error': 'product not exist in collection'}, status=404)
+                    {'error': 'product not exist in your collection'}, status=404)

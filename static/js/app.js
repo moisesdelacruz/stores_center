@@ -50,6 +50,52 @@ function addToCart(event) {
   });
 }
 
+// remove from cart
+addEventListenerByClass('remove_from_cart', 'click', removeFromCart);
+
+function removeFromCart(event) {
+  event.preventDefault();
+  var el = event.target.closest('.product') ? event.target.closest('.product') : event.target.closest('.product_detail');
+  this.el = el;
+
+  var product = {
+    'product': el.getAttribute('data-id')
+  };
+
+  var csrftoken = getCookie('csrftoken');
+
+  function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method)
+    );
+  }
+
+  $.ajaxSetup({
+    beforeSend: function (xhr, settings) {
+      if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+      }
+    }
+  });
+
+  $.ajax({
+    type: 'POST',
+    url: '/shopping_cart/remove/',
+    data: product,
+    context: this,
+    success: function (response) {
+      if (response.success) {
+        let count_product_cart = document.getElementById('cart_count');
+        count_product_cart.textContent = parseInt(count_product_cart.textContent) - 1;
+        // remove element
+        this.el.remove();
+      } else {
+        alert('product not exist in your collection');
+      }
+    }
+  });
+}
+
 },{"../get_cookie.js":2}],2:[function(require,module,exports){
 module.exports = function getCookie(name) {
     var cookieValue = null;
