@@ -42,7 +42,12 @@
               {% for item in menu %}
                 <li><a href="{{ item.url }}" {% if item.active %}class="active"{% endif %}>{{ item.name }}</a></li>
               {% endfor %}
-              <li><a href="#" class="card"><i class="material-icons">shopping_cart</i><span class="new badge blue" data-badge-caption="Products">4</span></a></li>
+              <li>
+                <a href="#" class="card">
+                  <i class="material-icons">shopping_cart</i>
+                  <span class="new badge blue" data-badge-caption="Products" id="cart_count">{{ count_product_cart }}</span>
+                </a>
+              </li>
             </ul>
           </nav>
         </div>
