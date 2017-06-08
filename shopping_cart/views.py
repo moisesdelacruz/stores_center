@@ -7,6 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 
 from shopping_cart.models import CartProduct
+from product.models import Product
 
 from utils.uuid_validate import validate_uuid
 
@@ -15,9 +16,9 @@ from utils.uuid_validate import validate_uuid
 class CartProductAddView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         if request.is_ajax():
-            if validate_uuid(request.POST.get('product[id]')):
+            if validate_uuid(request.POST.get('product')):
                 product = get_object_or_404(
-                    Product, id=request.POST.get('product[id]'))
+                    Product, id=request.POST.get('product'))
                 obj, created = CartProduct.objects.get_or_create(
                     user=request.user,
                     product=product
@@ -26,7 +27,7 @@ class CartProductAddView(LoginRequiredMixin, View):
                     'product': {
                         'id': str(obj.product.id),
                         'name': obj.product.name,
-                        'photo': obj.product.photo
+                        'photo': obj.product.photo.url
                     },
                     'user': {
                         'id': obj.user.id,
