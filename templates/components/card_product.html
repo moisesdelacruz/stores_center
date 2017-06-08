@@ -26,9 +26,19 @@
           {% include "components/stars.html" %}
         {% endwith %}
       </span>
-      <a href="#" class="btn btn-floating orange right add_to_cart">
-        <i class="material-icons">add_shopping_cart</i>
-      </a>
+      {% if product.id in shopping_cart %}
+        <a href="#"
+          class="btn btn-floating red right add_or_remove_product_cart"
+          data-action="remove">
+          <i class="material-icons">remove_shopping_cart</i>
+        </a>
+      {% else %}
+        <a href="#"
+          class="btn btn-floating orange right add_or_remove_product_cart"
+          data-action="add">
+          <i class="material-icons">add_shopping_cart</i>
+        </a>
+      {% endif %}
     </div>
   </div>
 </div>

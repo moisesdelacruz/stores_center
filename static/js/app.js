@@ -1,6 +1,12 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 const getCookie = require('../get_cookie.js');
 
+function csrfSafeMethod(method) {
+  // these HTTP methods do not require CSRF protection
+  return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method)
+  );
+}
+
 function addEventListenerByClass(className, event, fn) {
   var list = document.getElementsByClassName(className);
   for (var i = 0, len = list.length; i < len; i++) {
@@ -9,10 +15,21 @@ function addEventListenerByClass(className, event, fn) {
 }
 
 // add to cart
-addEventListenerByClass('add_to_cart', 'click', addToCart);
+addEventListenerByClass('add_or_remove_product_cart', 'click', eventAddOrRemove);
+
+function eventAddOrRemove(event) {
+  event.preventDefault();
+  action = this.getAttribute('data-action');
+
+  if (action == 'add') {
+    addToCart(event);
+  } else {
+    removeFromCart(event);
+  }
+}
 
 function addToCart(event) {
-  event.preventDefault();
+
   var el = event.target.closest('.product') ? event.target.closest('.product') : event.target.closest('.product_detail');
 
   var product = {
@@ -20,12 +37,6 @@ function addToCart(event) {
   };
 
   var csrftoken = getCookie('csrftoken');
-
-  function csrfSafeMethod(method) {
-    // these HTTP methods do not require CSRF protection
-    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method)
-    );
-  }
 
   $.ajaxSetup({
     beforeSend: function (xhr, settings) {
@@ -39,10 +50,15 @@ function addToCart(event) {
     type: 'POST',
     url: '/shopping_cart/add/',
     data: product,
+    context: event.currentTarget,
     success: function (response) {
       if (response.created) {
         let count_product_cart = document.getElementById('cart_count');
         count_product_cart.textContent = parseInt(count_product_cart.textContent) + 1;
+        this.classList.remove('orange');
+        this.classList.add('red');
+        this.querySelector('i').innerText = "remove_shopping_cart";
+        this.setAttribute('data-action', 'remove');
       } else {
         alert('product already exist in your collection');
       }
@@ -51,24 +67,15 @@ function addToCart(event) {
 }
 
 // remove from cart
-addEventListenerByClass('remove_from_cart', 'click', removeFromCart);
-
 function removeFromCart(event) {
-  event.preventDefault();
+
   var el = event.target.closest('.product') ? event.target.closest('.product') : event.target.closest('.product_detail');
-  this.el = el;
 
   var product = {
     'product': el.getAttribute('data-id')
   };
 
   var csrftoken = getCookie('csrftoken');
-
-  function csrfSafeMethod(method) {
-    // these HTTP methods do not require CSRF protection
-    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method)
-    );
-  }
 
   $.ajaxSetup({
     beforeSend: function (xhr, settings) {
@@ -82,13 +89,15 @@ function removeFromCart(event) {
     type: 'POST',
     url: '/shopping_cart/remove/',
     data: product,
-    context: this,
+    context: event.currentTarget,
     success: function (response) {
       if (response.success) {
         let count_product_cart = document.getElementById('cart_count');
         count_product_cart.textContent = parseInt(count_product_cart.textContent) - 1;
-        // remove element
-        this.el.remove();
+        this.classList.remove('red');
+        this.classList.add('orange');
+        this.querySelector('i').innerText = "add_shopping_cart";
+        this.setAttribute('data-action', 'add');
       } else {
         alert('product not exist in your collection');
       }

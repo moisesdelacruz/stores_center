@@ -47,10 +47,21 @@
         <div class="col s12 m6">
           <div class="row">
             <input type="number" min="1" value="1" />
-            <a href="#!" class="waves-effect waves-light btn orange add_to_cart">
-              <i class="material-icons left">add_shopping_cart</i>
-              add to cart
-            </a>
+            {% if object.id in shopping_cart %}
+              <a href="#!"
+                class="waves-effect waves-light btn orange add_or_remove_product_cart"
+                data-action="remove">
+                <i class="material-icons left">remove_shopping_cart</i>
+                remove from cart
+              </a>
+            {% else %}
+              <a href="#!"
+                class="waves-effect waves-light btn orange add_or_remove_product_cart"
+                data-action="add">
+                <i class="material-icons left">add_shopping_cart</i>
+                add to cart
+              </a>
+            {% endif %}
           </div>
         </div>
       </div>
