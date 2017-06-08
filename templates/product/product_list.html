@@ -11,7 +11,7 @@
     </div>
     <div class="col s12 m8 white">
       {% include "components/search_form.html" %}
-      <div class="row">
+      <div class="row list_products">
         {% if object_list %}
           {% for product in object_list %}
             {% include "components/card_product.html" %}

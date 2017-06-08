@@ -6767,7 +6767,7 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
 .product_detail .price {
   color: #ffab40; }
 
-.product_list img.photo {
+.product img.photo {
   max-width: 120px !important;
   max-height: 190px !important;
   width: 100% !important;
