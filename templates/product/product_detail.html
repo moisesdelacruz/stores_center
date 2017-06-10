@@ -46,20 +46,20 @@
       <div class="row">
         <div class="col s12 m6">
           <div class="row">
-            <input type="number" min="1" max="{{ product.quantity }}" value="1" />
+            <input type="number" class="quantity" min="1" max="{{ product.quantity }}" value="1" />
             {% if object.id in shopping_cart %}
               <a href="#!"
-                class="waves-effect waves-light btn orange add_or_remove_product_cart"
+                class="waves-effect waves-light btn red add_or_remove_product_cart"
                 data-action="remove">
                 <i class="material-icons left">remove_shopping_cart</i>
-                remove from cart
+                <span>remove from cart</span>
               </a>
             {% else %}
               <a href="#!"
                 class="waves-effect waves-light btn orange add_or_remove_product_cart"
                 data-action="add">
                 <i class="material-icons left">add_shopping_cart</i>
-                add to cart
+                <span>add to cart</span>
               </a>
             {% endif %}
           </div>

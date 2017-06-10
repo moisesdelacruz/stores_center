@@ -22,6 +22,9 @@
       {% endif %}
     </div>
     <div class="card-action">
+      <span class="color-green left">
+        Quantity: <strong>{{ item.quantity }}</strong>
+      </span>
       <span class="right">
         {% if request.user == item.user %}
           <a href="#" class="btn btn-floating red add_or_remove_product_cart" data-action="remove" title="remove to cart">

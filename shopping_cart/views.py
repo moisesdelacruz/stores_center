@@ -13,6 +13,13 @@ from utils.uuid_validate import validate_uuid
 
 # Create your views here.
 
+def validate_int(value):
+    try:
+        int(value)
+        return True
+    except ValueError:
+        return False
+
 class CartProductListView(LoginRequiredMixin, ListView):
     model = CartProduct
 
@@ -31,12 +38,14 @@ class CartProductListView(LoginRequiredMixin, ListView):
 class CartProductAddView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         if request.is_ajax():
-            if validate_uuid(request.POST.get('product')):
+            if (validate_uuid(request.POST.get('product'))
+                and validate_int(request.POST.get('quantity'))):
                 product = get_object_or_404(
                     Product, id=request.POST.get('product'))
                 obj, created = CartProduct.objects.get_or_create(
                     user=request.user,
-                    product=product
+                    product=product,
+                    quantity=int(request.POST.get('quantity'))
                 )
                 object = ({
                     'product': {

@@ -6845,6 +6845,9 @@ blockquote {
 .title {
   color: #47BAC1; }
 
+.color-green {
+  color: green; }
+
 .border-right {
   border-right: 1px solid #EEE; }
 

@@ -32,8 +32,18 @@ function addToCart(event) {
     ? event.target.closest('.product')
     : event.target.closest('.product_detail');
 
+  var quantity_element = el.getElementsByClassName('quantity')[0];
+  var quantity = 1;
+  if (quantity_element) {
+    quantity = quantity_element.value;
+    if (quantity_element.value > quantity_element.max) {
+      quantity = quantity_element.max;
+    }
+  }
+
   var product = {
-    'product': el.getAttribute('data-id')
+    'product': el.getAttribute('data-id'),
+    'quantity': quantity
   };
 
   var csrftoken = getCookie('csrftoken');
@@ -59,6 +69,9 @@ function addToCart(event) {
         this.classList.add('red');
         this.querySelector('i').innerText = "remove_shopping_cart";
         this.setAttribute('data-action', 'remove');
+        if (this.querySelector('span')) {
+          this.querySelector('span').innerText = "REMOVE FROM CART";
+        }
       } else {
         alert('product already exist in your collection');
       }
@@ -105,6 +118,9 @@ function removeFromCart(event) {
         this.classList.add('orange');
         this.querySelector('i').innerText = "add_shopping_cart";
         this.setAttribute('data-action', 'add');
+        if (this.querySelector('span')) {
+          this.querySelector('span').innerText = "ADD TO CART";
+        }
       } else {
         alert('product not exist in your collection');
       }
