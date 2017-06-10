@@ -6751,9 +6751,9 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
 .profile-img {
   border-radius: 50%;
   background-color: #eeeeee;
-  width: 150px;
-  height: 150px;
-  line-height: 15;
+  width: 200px;
+  height: 200px;
+  line-height: 18;
   margin: 1em auto; }
 
 .shop .cover_image {

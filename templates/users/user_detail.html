@@ -10,50 +10,31 @@
 
 {% block main %}
   <div class="row container">
-    <div class="col s12 m4 border-right">
+    <div class="col s12">
       <div class="row">
         <p class="center profile-img">
           <i class="large material-icons circle">perm_identity</i>
         </p>
         <div class="row center">
-          <p>
+          <h3>
             {% if object.get_full_name %}
               {{ object.get_full_name|title }}
             {% else %}
               {{ object.username }}
             {% endif %}
-          </p>
+          </h3>
           <p>
             {{ object.email }}
           </p>
         </div>
       </div>
-      <div class="row">
-        <h5 class="title">Shops</h5>
-        <ul class="collection">
-          {% for shop in shops %}
-            <li class="collection-item avatar">
-              {% if shop.logo %}
-                <img src="{{ shop.logo.url }}" alt="" class="circle">
-              {% endif %}
-              <span><a href="{% url 'shop:detail' shop.slug %}" class="title">{{ shop.name }}</a></span>
-              <p>{{ shop.description|truncatechars:40 }}</p>
-            </li>
-          {% endfor %}
-        </ul>
-        {% if request.user.username == object.username %}
-          <a class="btn-floating btn-large waves-effect waves-light right" href="{% url 'shop:create' %}"><i class="material-icons">add</i></a>
-        {% endif %}
-      </div>
     </div>
-    <div class="col s12 m8 list_products">
-      <h4 class="title center">Shopping Cart</h4>
+    <div class="col s12">
       <div class="row">
-        {% for item in products %}
-          {% include "components/item_cart.html" %}
+        {% for shop in shops %}
+          {% include "components/shop.html" %}
         {% endfor %}
       </div>
     </div>
-    <a class="waves-effect waves-light btn right"><i class="material-icons left">shop</i>pay now</a>
   </div>
 {% endblock %}
