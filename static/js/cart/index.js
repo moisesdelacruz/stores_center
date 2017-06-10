@@ -69,7 +69,7 @@ function addToCart(event) {
 
 // remove from cart
 function removeFromCart(event) {
-  
+
   var el = event.target.closest('.product')
     ? event.target.closest('.product')
     : event.target.closest('.product_detail');
@@ -97,6 +97,10 @@ function removeFromCart(event) {
       if (response.success) {
         let count_product_cart = document.getElementById('cart_count');
         count_product_cart.textContent = parseInt(count_product_cart.textContent)-1;
+        if (window.location.pathname === "/shopping_cart/") {
+          this.closest('.product').parentElement.removeChild(this.closest('.product'));
+          return;
+        }
         this.classList.remove('red');
         this.classList.add('orange');
         this.querySelector('i').innerText = "add_shopping_cart";
