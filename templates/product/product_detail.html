@@ -46,7 +46,7 @@
       <div class="row">
         <div class="col s12 m6">
           <div class="row">
-            <input type="number" min="1" value="1" />
+            <input type="number" min="1" max="{{ product.quantity }}" value="1" />
             {% if object.id in shopping_cart %}
               <a href="#!"
                 class="waves-effect waves-light btn orange add_or_remove_product_cart"

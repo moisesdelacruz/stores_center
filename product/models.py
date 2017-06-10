@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.template.defaultfilters import slugify
 from djmoney.models.fields import MoneyField
 from django.db import models
+from django.core.validators import MinValueValidator
 from shop.models import Shop
 import uuid
 
@@ -44,7 +45,7 @@ class Product(models.Model):
     name = models.CharField(max_length=60)
     categories = models.ManyToManyField(Category)
     description = models.TextField()
-    quantity = models.IntegerField(default=1)
+    quantity = models.PositiveIntegerField(default=1, validators=[MinValueValidator(1)])
     price = MoneyField(max_digits=10, decimal_places=2, default_currency='USD')
     discount = IntegerRangeField(blank=True, null=True, min_value=0, max_value=100)
     photo = models.ImageField(upload_to=content_file_name)
