@@ -43,7 +43,7 @@
                 <li><a href="{{ item.url }}" {% if item.active %}class="active"{% endif %}>{{ item.name }}</a></li>
               {% endfor %}
               <li>
-                <a href="#" class="card">
+                <a href="{% url 'shopping_cart:list' %}" class="card">
                   <i class="material-icons">shopping_cart</i>
                   <span class="new badge blue" data-badge-caption="Products" id="cart_count">{{ shopping_cart.count }}</span>
                 </a>

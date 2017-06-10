@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views import View
+from django.views.generic import View, ListView
 
 from shopping_cart.models import CartProduct
 from product.models import Product
@@ -12,6 +12,21 @@ from product.models import Product
 from utils.uuid_validate import validate_uuid
 
 # Create your views here.
+
+class CartProductListView(LoginRequiredMixin, ListView):
+    model = CartProduct
+
+    def get_queryset(self):
+        return CartProduct.objects.filter(user=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super(CartProductListView, self).get_context_data(**kwargs)
+        for index, item in enumerate(self.object_list):
+            # add discount to products
+            if item.product.discount:
+                self.object_list[index].product.new_price = (float(item.product.price)
+                    - ((item.product.discount * float(item.product.price)) / 100))
+        return context
 
 class CartProductAddView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):

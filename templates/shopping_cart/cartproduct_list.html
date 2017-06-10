@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Cart
+{% endblock %}
+
+{% block main %}
+  <div class="row container">
+    <h3 class="title center">Shopping Cart</h3>
+    {% for item in object_list %}
+      <div class="col s12 {% if object_list.count > 1 %}m6{% endif %}">
+        {% include "components/item_cart.html" %}
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
