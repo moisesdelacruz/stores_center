@@ -8,6 +8,7 @@ from django.views.generic import View, ListView
 
 from shopping_cart.models import CartProduct
 from product.models import Product
+from users.models import User
 
 from utils.uuid_validate import validate_uuid
 
@@ -82,3 +83,79 @@ class CartProductDeleteView(LoginRequiredMixin, View):
             except CartProduct.DoesNotExist:
                 return JsonResponse(
                     {'error': 'product not exist in your collection'}, status=404)
+
+
+class PayProductsView(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        self.request = request
+        if request.is_ajax():
+            if request.POST.get('product') == 'all':
+                items = CartProduct.objects.filter(user=request.user)
+                # array donde se almacenaran los id de los products vendidos
+                sold = []
+                user_money = request.user.money
+                # itera sobre los products
+                for item in items:
+                    # sumar el precio de todos los productos
+                    price = self.cal_price(item.product, item.quantity)
+                    # verificar que el usuario tenga suficiente dinero
+                    if price <= float(request.user.money):
+                        # cobrar al usuario
+                        user_money = self.buyer_charge(price)
+                        # pagar al owner del producto
+                        self.pay_owner(item.product.shop.owner, price)
+                        # add to the collection
+                        sold.append(item.product.id)
+                        # delete products from shopping cart
+                        item.delete()
+                return JsonResponse(
+                    {'success': True, 'user_money': ("%.2f" % user_money), 'sold': sold},
+                    status=200)
+            else:
+                try:
+                    if validate_uuid(request.POST.get('product')):
+                        item = CartProduct.objects.get(
+                            product=request.POST.get('product'), user=request.user)
+                        # sumar el precio de todos los productos
+                        price = self.cal_price(item.product, item.quantity)
+                        # verificar que el usuario tenga suficiente dinero
+                        if price <= float(request.user.money):
+                            # cobrar al usuario
+                            user_money = self.buyer_charge(price)
+                            # pagar al owner del producto
+                            self.pay_owner(item.product.shop.owner, price)
+                            # delete products from shopping cart
+                            item.delete()
+                            return JsonResponse(
+                                {'success': True, 'user_money': ("%.2f" % user_money), 'sold': [item.product.id]},
+                                status=200)
+                        else:
+                            return JsonResponse(
+                                {'success': False, 'total_pay': ("%.2f" % price)},
+                                status=204)
+                    else:
+                        JsonResponse({'error': 'product id not valid'}, status=400)
+                except CartProduct.DoesNotExist:
+                    return JsonResponse(
+                        {'error': 'product not exist in your collection'}, status=404)
+
+    def cal_price(self, product, quantity):
+        price = float(product.price)
+        # aplicar descuento
+        if product.discount:
+            price = (float(product.price)
+                - ((product.discount
+                * float(product.price))
+                / 100))
+        return price*float(quantity)
+
+    def pay_owner(self, owner, money):
+        owner = User.objects.get(pk=owner.pk)
+        owner.money = float(owner.money) + money
+        owner.save()
+
+    def buyer_charge(self, money):
+        user = User.objects.get(pk=self.request.user.pk)
+        user.money = float(user.money)-money
+        user.save()
+        return user.money

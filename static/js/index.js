@@ -3,4 +3,5 @@ $(document).ready(function() {
 
    require('./review/rating.js');
    require('./cart/index.js');
+   require('./pay/index.js');
 });
